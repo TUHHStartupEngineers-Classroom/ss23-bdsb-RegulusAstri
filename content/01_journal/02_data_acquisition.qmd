@@ -1,8 +1,143 @@
 ---
 title: "Data Acquisition"
-author: "Joschka Schwarz"
+author: "Tommy Weber"
+
+number-sections: true
+number-depth: 5
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Web API
+## Adding Libraries
+
+```{r}
+#| message: false
+library(tidyverse)
+library(httr)
+library(glue)
+library(jsonlite)
+```
+
+## Get Data from API
+
+```{r}
+#| message: false
+
+base_url <- "https://archive-api.open-meteo.com"
+harburg_lat_lon_query <- "latitude=53.4608&longitude=9.9836"
+data_url <- glue("/v1/era5?{harburg_lat_lon_query}&start_date=2023-04-24&end_date=2023-04-26&hourly=temperature_2m")
+resp <- GET(glue("{base_url}{data_url}"))
+stop_for_status(resp)
+resp
+```
+## Convert received Data to List
+
+```{r}
+weather_data_list <- resp %>% 
+  .$content %>% 
+  rawToChar() %>% 
+  fromJSON()
+```
+
+## Convert List to Tibble
+```{r}
+temperature_data_tbl <- weather_data_list %>% 
+  .$hourly %>% 
+  as_tibble()
+
+temperature_data_tbl %>% head(10)
+```
+
+## Visualize the Data
+
+```{r}
+temperature_data_tbl %>% 
+  ggplot(aes(x = time, y = temperature_2m)) +
+  geom_point() +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
+  theme(plot.margin = margin(10,40,10,40)) + 
+  labs(
+    title    = "Temperature Curve",
+    subtitle = "24.04.2023 - 26.04.2023",
+    x = "",
+    y = "Temperature in °C"
+  )
+```
+
+# Web Scraping
+## Adding Libraries
+
+```{r}
+library(rvest)
+library(xopen)
+```
+
+## Read in the HTML
+
+```{r}
+# The url to the Backroad category of the Gravel family
+url_category <- "https://www.rosebikes.de/fahrr%C3%A4der/gravel/backroad"
+xopen(url_category)
+
+# Read in the HTML for the category site
+html_category <- read_html(url_category)
+```
+
+## Scrape the Names and Prices
+
+All models are displayed in a custom html-tag
+called 'catalog-category-model'.
+
+```{r}
+# Web scrape the model names
+bike_model_name_tbl <- html_category %>%
+  html_nodes(css = "catalog-category-model") %>%
+  html_nodes(css = ".basic-headline__title") %>%
+  html_text() %>%
+  enframe(name = "position", value = "model_name")
+
+bike_model_name_tbl
+
+# Web scrape the model prices
+bike_model_price_tbl <- html_category %>%
+  html_nodes(css = "catalog-category-model") %>%
+  html_nodes(css = ".product-tile-price__current-value") %>%
+  html_text() %>%
+  parse_number() %>%
+  enframe(name = "position", value = "price")
+
+bike_model_price_tbl
+```
+
+## Combine the Data
+
+```{r}
+bike_model_tbl <- bike_model_name_tbl %>%
+  left_join(bike_model_price_tbl, by = join_by(position))
+
+bike_model_tbl %>% head(10)
+```
+
+## Remove Duplicates
+
+```{r}
+bike_model_tbl %>%
+  group_by(model_name) %>%
+  # Since the price should be the same, choose the first one.
+  summarise(price = price[1])
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

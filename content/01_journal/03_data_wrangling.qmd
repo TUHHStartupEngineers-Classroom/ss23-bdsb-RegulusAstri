@@ -1,8 +1,164 @@
 ---
 title: "Data Wrangling"
-author: "Joschka Schwarz"
+author: "Tommy Weber"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+## Add Libraries
+
+```{r}
+#| message: false
+library(tidyverse)
+library(vroom)
+library(data.table)
+```
+
+## Import data
+
+```{r}
+#| message: false
+# Assgignee data
+assignee_col_types <- list(
+  id = col_character(),
+  type = col_character(),
+  organization = col_character()
+)
+
+assignee_tbl <- vroom(
+            file       = "../../../patent_data_reduced/assignee.tsv", 
+            delim      = "\t", 
+            col_types  = assignee_col_types,
+            na         = c("", "NA", "NULL")
+        )
+
+setDT(assignee_tbl)
+
+
+# Patent assignee data
+patent_assignee_col_types <- list(
+  patent_id = col_character(),
+  assignee_id = col_character()
+)
+
+patent_assignee_tbl <- vroom(
+            file       = "../../../patent_data_reduced/patent_assignee.tsv", 
+            delim      = "\t", 
+            col_types  = patent_assignee_col_types,
+            na         = c("", "NA", "NULL")
+        )
+
+setDT(patent_assignee_tbl)
+
+
+# Patent data
+patent_col_types <- list(
+  id = col_character(),
+  date = col_date("%Y-%m-%d"),
+  num_claims = col_integer()
+)
+
+patent_tbl <- vroom(
+            file       = "../../../patent_data_reduced/patent.tsv", 
+            delim      = "\t", 
+            col_types  = patent_col_types,
+            na         = c("", "NA", "NULL")
+        )
+
+setDT(patent_tbl)
+
+
+# USPC data
+uspc_col_types <- list(
+  patent_id = col_character(),
+  mainclass_id = col_character(),
+  sequence = col_integer()
+)
+
+uspc_tbl <- vroom(
+            file       = "../../../patent_data_reduced/uspc.tsv", 
+            delim      = "\t", 
+            col_types  = uspc_col_types,
+            na         = c("", "NA", "NULL")
+        )
+
+setDT(uspc_tbl)
+```
+
+## Combine the Patent Data
+
+```{r}
+#| message: false
+# Important to note:
+# It seems possible to have multiple assignees per patent.
+
+combined_patent_data <- merge(x = patent_assignee_tbl, y = assignee_tbl, 
+                       by.x = "assignee_id",
+                       by.y = "id",
+                       all = FALSE)
+
+combined_patent_data <- merge(x = combined_patent_data, y = patent_tbl,
+                       by.x = "patent_id",
+                       by.y = "id",
+                       all.x = FALSE,
+                       # There seem to be patents without an assignee
+                       all.y = TRUE)
+```
+
+## Combine the USPC Data
+
+```{r}
+#| message: false
+# Important to notes
+# There seem to be multiple patent classifications per patent.
+
+combined_uspc_data <- merge(x = patent_assignee_tbl, y = assignee_tbl, 
+                       by.x = "assignee_id",
+                       by.y = "id",
+                       all = FALSE)
+
+combined_uspc_data <- merge(x = combined_uspc_data, y = uspc_tbl,
+                       by = "patent_id",
+                       all.x = TRUE,
+                       # There seem to be patents without a classification.
+                       all.y = FALSE)
+```
+
+## US Patent Dominance
+
+```{r}
+combined_patent_data[
+  !is.na(organization) & type == "2",
+  .N, by = .(organization)][order(-N)] %>% 
+  head(10)
+```
+
+## US Patent Activity for August
+
+```{r}
+combined_patent_data[
+  !is.na(organization) & type == "2" & lubridate::month(date, label = T) == "Aug",
+  .N, 
+  by = .(organization)][order(-N)] %>% head(10)
+```
+
+## Most innovative Sector worldwide
+
+```{r}
+top_organization_vect <- 
+  combined_uspc_data[
+    !is.na(organization), .N, by = .(organization)][
+      order(-N)][
+        1:10, c(organization)]
+
+combined_uspc_data[
+  !is.na(mainclass_id) & organization %in% top_organization_vect, 
+  .N, 
+  by = mainclass_id][
+    order(-N)][1:10]
+```
+
+
+
+
+
+
+

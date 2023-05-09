@@ -1,8 +1,165 @@
 ---
 title: "Data Visualization"
-author: "Joschka Schwarz"
+author: "Tommy Weber"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Covid case graph
+
+## Data Wrangling
+
+```{r}
+#| message: false
+library(tidyverse)
+covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+
+country_vect <- c("Germany", "France", "United Kingdom", "Spain", "United States")
+
+# Countries
+country_data_tbl <- covid_data_tbl %>% 
+  select(location, date, total_cases) %>% 
+  filter(location %in% country_vect & !is.na(total_cases))
+
+# Europe
+europe_data_tbl <- covid_data_tbl %>% 
+  select(continent, date, total_cases) %>% 
+  filter(continent == "Europe" & !is.na(total_cases)) %>% 
+  group_by(date) %>% 
+  summarise(total_cases = sum(total_cases)) %>% 
+  ungroup() %>% 
+  mutate(location = "Europe")
+
+# Combine country and Europe tables
+wrangled_data_tbl <- europe_data_tbl %>% 
+  add_row(country_data_tbl)
+
+# Create the label data used to display the current 
+# total for Europe and the USA
+label_data <- wrangled_data_tbl %>% 
+  filter(date == max(date)) %>% 
+  filter(location == "Europe" | location == "United States") %>% 
+  mutate(total_cases_label = scales::number(total_cases, 
+                                            big.mark = ".", 
+                                            decimal.mark = ","))
+
+```
+## Visualizing
+
+```{r plot1}
+wrangled_data_tbl %>% 
+  ggplot(aes(date, total_cases, color = location)) +
+  geom_line(linewidth = 0.5, linetype = 1) +
+  geom_label(
+    aes(label = total_cases_label),
+    data = label_data,
+    hjust = "inward",
+    nudge_y = 20000000,
+    show.legend = F) +
+  
+  scale_x_date(
+    date_breaks = "1 month",
+    date_labels = "%B '%y") +
+  scale_y_continuous(labels = scales::dollar_format(scale = 1e-6,
+                                                    prefix = "",
+                                                    suffix = "M")) +
+  
+  labs(
+    title = "Covid-19 confirmed cases worldwide",
+    subtitle = "As of 06.05.2023",
+    color = "Continent / Country",
+    x = "",
+    y = "Cumulative Cases"
+  ) +
+  
+  theme_grey() +
+  theme(
+    plot.background = element_rect(fill = "#552525"),
+    text = element_text(color = "white"),
+    axis.text.x = element_text(color = "white", angle = 45, hjust = 1, size = 6),
+    axis.text.y = element_text(color = "white", size = 6),
+    legend.background = element_rect(fill = "#332525"),
+    legend.key = element_blank(),
+    legend.text = element_text(color = "white", size = 6),
+    legend.position = "bottom"
+  )
+
+```
+# Case-fatality map
+
+## Data Wrangling
+
+```{r}
+#| message: false
+current_covid_data <- covid_data_tbl %>%
+  
+  # Select the necessary data
+  filter(date == "2023-04-01") %>% 
+  mutate(death_per_case = total_deaths / total_cases) %>% 
+  select(location, death_per_case) %>%
+  
+  # Rename some locations so that they match with the map_data regions
+  mutate(location = case_when(
+
+    location == "United Kingdom" ~ "UK",
+    location == "United States" ~ "USA",
+    location == "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+    TRUE ~ location
+
+  )) %>%
+  distinct()
+
+# Combine covid and world data
+map_covid_data_tbl <- map_data("world") %>% 
+  left_join(current_covid_data, 
+            by = join_by("region" == "location"))
+
+```
+
+## Visualizing
+
+```{r}
+map_covid_data_tbl %>% 
+  ggplot(aes(map_id = region)) +
+  
+  geom_map(aes(fill = death_per_case), map = map_covid_data_tbl) +
+  
+  expand_limits(x = map_covid_data_tbl$long, y = map_covid_data_tbl$lat) +
+  
+  scale_fill_gradient(low = "#99FF99", high = "#005500",
+                      labels = scales::dollar_format(scale = 1e2,
+                                                     prefix = "",
+                                                     suffix = "%")) +
+  
+  labs(
+    title = "Covid-19 Case-fatality Rate",
+    caption = "Date: 04/01/2023",
+    fill = "Case-fatality Rate"
+  ) +
+  
+  theme(
+    plot.background = element_rect(fill = "#441111"),
+    panel.background = element_blank(),
+    plot.title = element_text(color = "white", size = 20),
+    text = element_text(color = "white"),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    legend.background = element_rect(fill = "#552525"),
+    legend.key = element_blank(),
+    legend.text = element_text(color = "white", size = 6),
+  )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
