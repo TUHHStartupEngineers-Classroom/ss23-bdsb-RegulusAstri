@@ -1,45 +1,157 @@
 [
   {
-    "objectID": "content/03_other/06_links.html",
-    "href": "content/03_other/06_links.html",
-    "title": "Links",
-    "section": "",
-    "text": "R is a free open-source programming language that can be used for statistical analysis, data-simulation, graphing, and lots of other stuff. Another free program is R-studio, that provides a nice graphic interface for R. Download R first, then download R-studio. Both can run on PCs, Macs or Linux. Students will be learning R in the stats labs using the lab manual .\n\n\n\n\nGoogle is great, Google your problem\nStackoverflow is great, google will often take you there because someone has already asked your question, and someone else has answered, usually many people have answered your question many ways."
-  },
-  {
-    "objectID": "content/01_journal/03_data_wrangling.html",
-    "href": "content/01_journal/03_data_wrangling.html",
-    "title": "Data Wrangling",
-    "section": "",
-    "text": "Note\n\n\n\nYou can delete everything in here and start fresh."
-  },
-  {
-    "objectID": "content/01_journal/04_data_visualization.html",
-    "href": "content/01_journal/04_data_visualization.html",
-    "title": "Data Visualization",
-    "section": "",
-    "text": "Note\n\n\n\nYou can delete everything in here and start fresh."
-  },
-  {
     "objectID": "content/01_journal/01_tidyverse.html",
     "href": "content/01_journal/01_tidyverse.html",
     "title": "Tidyverse",
     "section": "",
-    "text": "Note\n\n\n\nYou can delete everything in here and start fresh.\nThis is a .qmd file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a # in front of your text, it will create a top level-header.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "library(tidyverse)\nlibrary(readxl)\nlibrary(lubridate)"
   },
   {
-    "objectID": "content/01_journal/01_tidyverse.html#header-2",
-    "href": "content/01_journal/01_tidyverse.html#header-2",
+    "objectID": "content/01_journal/01_tidyverse.html#importing-files",
+    "href": "content/01_journal/01_tidyverse.html#importing-files",
     "title": "Tidyverse",
-    "section": "\n2.1 Header 2",
-    "text": "2.1 Header 2\nHeader 3\nHeader 4\nHeader 5\nHeader 6"
+    "section": "\n2 Importing Files",
+    "text": "2 Importing Files\n\nbikes_tbl <- read_excel(\"../../cm_data/01_raw_data/bikes.xlsx\")\nbikeshops_tbl <- read_excel(\"../../cm_data/01_raw_data/bikeshops.xlsx\")\norderlines_tbl <- read_excel(\"../../cm_data/01_raw_data/orderlines.xlsx\")"
+  },
+  {
+    "objectID": "content/01_journal/01_tidyverse.html#examining-data",
+    "href": "content/01_journal/01_tidyverse.html#examining-data",
+    "title": "Tidyverse",
+    "section": "\n3 Examining Data",
+    "text": "3 Examining Data\n\nglimpse(bikes_tbl)\n\n#> Rows: 231\n#> Columns: 9\n#> $ bike.id        <dbl> 2875, 2873, 2874, 2876, 2877, 2225, 2091, 2086, 2088, 2…\n#> $ model          <chr> \"Aeroad CF SL Disc 8.0 Di2\", \"Aeroad CF SLX Disc 9.0 ET…\n#> $ model.year     <dbl> 2020, 2020, 2020, 2020, 2020, 2019, 2019, 2021, 2020, 2…\n#> $ frame.material <chr> \"carbon\", \"carbon\", \"carbon\", \"carbon\", \"carbon\", \"carb…\n#> $ weight         <dbl> 7.60, 7.27, 7.10, 7.73, 7.83, 6.80, 6.80, 7.60, 7.30, 7…\n#> $ price          <dbl> 4579, 6919, 6429, 5069, 3609, 6139, 5359, 2629, 3699, 3…\n#> $ category       <chr> \"Road - Race - Aeroad\", \"Road - Race - Aeroad\", \"Road -…\n#> $ gender         <chr> \"unisex\", \"unisex\", \"unisex\", \"unisex\", \"unisex\", \"unis…\n#> $ url            <chr> \"https://www.canyon.com/en-de/road-bikes/race-bikes/aer…\n\nglimpse(bikeshops_tbl)\n\n#> Rows: 30\n#> Columns: 5\n#> $ bikeshop.id <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…\n#> $ name        <chr> \"Zum Goldenen Lenker\", \"AlexandeRad\", \"Fahrradladen 16\", \"…\n#> $ location    <chr> \"Berlin, Berlin\", \"Hamburg, Hamburg\", \"Munich, Bavaria\", \"…\n#> $ lat         <dbl> 52.51667, 53.57532, 48.15000, 50.93333, 50.11552, 48.78234…\n#> $ lng         <dbl> 13.400000, 10.015340, 11.583333, 6.950000, 8.684167, 9.180…\n\nglimpse(orderlines_tbl)\n\n#> Rows: 15,644\n#> Columns: 7\n#> $ ...1        <chr> \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\", \"11\", \"…\n#> $ order.id    <dbl> 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7…\n#> $ order.line  <dbl> 1, 2, 1, 2, 1, 2, 3, 4, 5, 1, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2…\n#> $ order.date  <dttm> 2015-01-07, 2015-01-07, 2015-01-10, 2015-01-10, 2015-01-1…\n#> $ customer.id <dbl> 2, 2, 10, 10, 6, 6, 6, 6, 6, 22, 8, 8, 8, 8, 16, 16, 16, 1…\n#> $ product.id  <dbl> 2681, 2411, 2629, 2137, 2367, 1973, 2422, 2655, 2247, 2408…\n#> $ quantity    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1…"
+  },
+  {
+    "objectID": "content/01_journal/01_tidyverse.html#joining-data",
+    "href": "content/01_journal/01_tidyverse.html#joining-data",
+    "title": "Tidyverse",
+    "section": "\n4 Joining Data",
+    "text": "4 Joining Data\n\nbike_orderlines_joined_tbl <- orderlines_tbl %>%\n  left_join(bikes_tbl, by = join_by('product.id' == 'bike.id')) %>% \n  left_join(bikeshops_tbl, by = join_by('customer.id' == 'bikeshop.id'))"
+  },
+  {
+    "objectID": "content/01_journal/01_tidyverse.html#wrangling-data",
+    "href": "content/01_journal/01_tidyverse.html#wrangling-data",
+    "title": "Tidyverse",
+    "section": "\n5 Wrangling Data",
+    "text": "5 Wrangling Data\n\nbike_orderlines_wrangled_tbl <- bike_orderlines_joined_tbl %>% \n  separate(col = location,\n           into = c(\"city\", \"state\"),\n           sep = \", \") %>%\n  mutate(total_price = price * quantity)"
+  },
+  {
+    "objectID": "content/01_journal/01_tidyverse.html#business-insights",
+    "href": "content/01_journal/01_tidyverse.html#business-insights",
+    "title": "Tidyverse",
+    "section": "\n6 Business Insights",
+    "text": "6 Business Insights\n\n6.1 Sales by States\n\n6.1.1 Manipulate\n\nsales_by_states_tbl <- bike_orderlines_wrangled_tbl %>%\n  select(state, total_price) %>% \n  group_by(state) %>% \n  summarise(sales = sum(total_price)) %>% \n  mutate(sales_text = scales::dollar(sales, big.mark = \".\", \n                                     decimal.mark = \",\", \n                                     prefix = \"\", \n                                     suffix = \" €\"))\n\nsales_by_states_tbl %>% \n  arrange(-sales) %>% \n  head(10)\n\n\n\n  \n\n\n\n\n6.1.2 Visualize\n\nsales_by_states_tbl %>%\n  \n  ggplot(aes(x = state, y = sales)) +\n  \n  geom_col(fill = \"#2DC6D6\") +\n  geom_label(aes(label = sales_text)) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  \n  scale_y_continuous(labels = scales::dollar_format(big.mark = \".\", \n                                                    decimal.mark = \",\", \n                                                    prefix = \"\", \n                                                    suffix = \" €\")) +\n  labs(\n    title    = \"Revenue by year\",\n    subtitle = \"Upward Trend\",\n    x = \"\",\n    y = \"Revenue\"\n  ) + \n  \n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\nNorth Rhine-Westphalia has the highest total revenue.\n\n6.2 Sales by States and Years\n\n6.2.1 Manipulate\n\nsales_by_states_and_years_tbl <- bike_orderlines_wrangled_tbl %>%\n  select(state, order.date, total_price) %>%\n  mutate(year = year(order.date)) %>% \n  group_by(state, year) %>% \n  summarise(sales = sum(total_price)) %>%\n  ungroup() %>% \n  mutate(sales_text = scales::dollar(sales, big.mark = \".\", \n                                     decimal.mark = \",\", \n                                     prefix = \"\", \n                                     suffix = \" €\"))\n\nsales_by_states_and_years_tbl %>% head(10)\n\n\n\n  \n\n\n\n\n6.2.2 Visualize\n\nsales_by_states_and_years_tbl %>% \n  \n  ggplot(aes(x = year, y = sales, fill = state)) +\n  \n  geom_col() +\n\n  facet_wrap(~ state) +\n  \n  scale_y_continuous(labels = scales::dollar_format(big.mark = \".\", \n                                                    decimal.mark = \",\", \n                                                    prefix = \"\", \n                                                    suffix = \" €\")) +\n  labs(\n    title = \"Revenue by year and main category\",\n    subtitle = \"Each product category has an upward trend\",\n    fill = \"Main category\" # Changes the legend name\n  )"
   },
   {
     "objectID": "content/01_journal/02_data_acquisition.html",
     "href": "content/01_journal/02_data_acquisition.html",
     "title": "Data Acquisition",
     "section": "",
-    "text": "Note\n\n\n\nYou can delete everything in here and start fresh."
+    "text": "library(tidyverse)\nlibrary(httr)\nlibrary(glue)\nlibrary(jsonlite)\n\n\n\nbase_url <- \"https://archive-api.open-meteo.com\"\nharburg_lat_lon_query <- \"latitude=53.4608&longitude=9.9836\"\ndata_url <- glue(\"/v1/era5?{harburg_lat_lon_query}&start_date=2023-04-24&end_date=2023-04-26&hourly=temperature_2m\")\nresp <- GET(glue(\"{base_url}{data_url}\"))\nstop_for_status(resp)\nresp\n\n#> Response [https://archive-api.open-meteo.com/v1/era5?latitude=53.4608&longitude=9.9836&start_date=2023-04-24&end_date=2023-04-26&hourly=temperature_2m]\n#>   Date: 2023-05-03 13:09\n#>   Status: 200\n#>   Content-Type: application/json; charset=utf-8\n#>   Size: 1.93 kB\n\n\n\n\nweather_data_list <- resp %>% \n  .$content %>% \n  rawToChar() %>% \n  fromJSON()\n\n\n\ntemperature_data_tbl <- weather_data_list %>% \n  .$hourly %>% \n  as_tibble()\n\ntemperature_data_tbl %>% head(10)\n\n\n\n  \n\n\n\n\n\ntemperature_data_tbl %>% \n  ggplot(aes(x = time, y = temperature_2m)) +\n  geom_point() +\n  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +\n  theme(plot.margin = margin(10,40,10,40)) + \n  labs(\n    title    = \"Temperature Curve\",\n    subtitle = \"24.04.2023 - 26.04.2023\",\n    x = \"\",\n    y = \"Temperature in °C\"\n  )"
+  },
+  {
+    "objectID": "content/01_journal/02_data_acquisition.html#adding-libraries-1",
+    "href": "content/01_journal/02_data_acquisition.html#adding-libraries-1",
+    "title": "Data Acquisition",
+    "section": "\n2.1 Adding Libraries",
+    "text": "2.1 Adding Libraries\n\nlibrary(rvest)\nlibrary(xopen)"
+  },
+  {
+    "objectID": "content/01_journal/02_data_acquisition.html#read-in-the-html",
+    "href": "content/01_journal/02_data_acquisition.html#read-in-the-html",
+    "title": "Data Acquisition",
+    "section": "\n2.2 Read in the HTML",
+    "text": "2.2 Read in the HTML\n\n# The url to the Backroad category of the Gravel family\nurl_category <- \"https://www.rosebikes.de/fahrr%C3%A4der/gravel/backroad\"\nxopen(url_category)\n\n#> Running cmd /c start \"\\\"\\\"\" /b \\\n#>   \"https://www.rosebikes.de/fahrr%C3%A4der/gravel/backroad\"\n\n# Read in the HTML for the category site\nhtml_category <- read_html(url_category)"
+  },
+  {
+    "objectID": "content/01_journal/02_data_acquisition.html#scrape-the-names-and-prices",
+    "href": "content/01_journal/02_data_acquisition.html#scrape-the-names-and-prices",
+    "title": "Data Acquisition",
+    "section": "\n2.3 Scrape the Names and Prices",
+    "text": "2.3 Scrape the Names and Prices\nAll models are displayed in a custom html-tag called ‘catalog-category-model’.\n\n# Web scrape the model names\nbike_model_name_tbl <- html_category %>%\n  html_nodes(css = \"catalog-category-model\") %>%\n  html_nodes(css = \".basic-headline__title\") %>%\n  html_text() %>%\n  enframe(name = \"position\", value = \"model_name\")\n\nbike_model_name_tbl\n\n\n\n  \n\n\n# Web scrape the model prices\nbike_model_price_tbl <- html_category %>%\n  html_nodes(css = \"catalog-category-model\") %>%\n  html_nodes(css = \".product-tile-price__current-value\") %>%\n  html_text() %>%\n  parse_number() %>%\n  enframe(name = \"position\", value = \"price\")\n\nbike_model_price_tbl"
+  },
+  {
+    "objectID": "content/01_journal/02_data_acquisition.html#combine-the-data",
+    "href": "content/01_journal/02_data_acquisition.html#combine-the-data",
+    "title": "Data Acquisition",
+    "section": "\n2.4 Combine the Data",
+    "text": "2.4 Combine the Data\n\nbike_model_tbl <- bike_model_name_tbl %>%\n  left_join(bike_model_price_tbl, by = join_by(position))\n\nbike_model_tbl %>% head(10)"
+  },
+  {
+    "objectID": "content/01_journal/02_data_acquisition.html#remove-duplicates",
+    "href": "content/01_journal/02_data_acquisition.html#remove-duplicates",
+    "title": "Data Acquisition",
+    "section": "\n2.5 Remove Duplicates",
+    "text": "2.5 Remove Duplicates\n\nbike_model_tbl %>%\n  group_by(model_name) %>%\n  # Since the price should be the same, choose the first one.\n  summarise(price = price[1])"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html",
+    "href": "content/01_journal/03_data_wrangling.html",
+    "title": "Data Wrangling",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(vroom)\nlibrary(data.table)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#import-data",
+    "href": "content/01_journal/03_data_wrangling.html#import-data",
+    "title": "Data Wrangling",
+    "section": "\n2 Import data",
+    "text": "2 Import data\n\n# Assgignee data\nassignee_col_types <- list(\n  id = col_character(),\n  type = col_character(),\n  organization = col_character()\n)\n\nassignee_tbl <- vroom(\n            file       = \"../../../patent_data_reduced/assignee.tsv\", \n            delim      = \"\\t\", \n            col_types  = assignee_col_types,\n            na         = c(\"\", \"NA\", \"NULL\")\n        )\n\nsetDT(assignee_tbl)\n\n\n# Patent assignee data\npatent_assignee_col_types <- list(\n  patent_id = col_character(),\n  assignee_id = col_character()\n)\n\npatent_assignee_tbl <- vroom(\n            file       = \"../../../patent_data_reduced/patent_assignee.tsv\", \n            delim      = \"\\t\", \n            col_types  = patent_assignee_col_types,\n            na         = c(\"\", \"NA\", \"NULL\")\n        )\n\nsetDT(patent_assignee_tbl)\n\n\n# Patent data\npatent_col_types <- list(\n  id = col_character(),\n  date = col_date(\"%Y-%m-%d\"),\n  num_claims = col_integer()\n)\n\npatent_tbl <- vroom(\n            file       = \"../../../patent_data_reduced/patent.tsv\", \n            delim      = \"\\t\", \n            col_types  = patent_col_types,\n            na         = c(\"\", \"NA\", \"NULL\")\n        )\n\nsetDT(patent_tbl)\n\n\n# USPC data\nuspc_col_types <- list(\n  patent_id = col_character(),\n  mainclass_id = col_character(),\n  sequence = col_integer()\n)\n\nuspc_tbl <- vroom(\n            file       = \"../../../patent_data_reduced/uspc.tsv\", \n            delim      = \"\\t\", \n            col_types  = uspc_col_types,\n            na         = c(\"\", \"NA\", \"NULL\")\n        )\n\nsetDT(uspc_tbl)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#combine-the-patent-data",
+    "href": "content/01_journal/03_data_wrangling.html#combine-the-patent-data",
+    "title": "Data Wrangling",
+    "section": "\n3 Combine the Patent Data",
+    "text": "3 Combine the Patent Data\n\n# Important to note:\n# It seems possible to have multiple assignees per patent.\n\ncombined_patent_data <- merge(x = patent_assignee_tbl, y = assignee_tbl, \n                       by.x = \"assignee_id\",\n                       by.y = \"id\",\n                       all = FALSE)\n\ncombined_patent_data <- merge(x = combined_patent_data, y = patent_tbl,\n                       by.x = \"patent_id\",\n                       by.y = \"id\",\n                       all.x = FALSE,\n                       # There seem to be patents without an assignee\n                       all.y = TRUE)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#combine-the-uspc-data",
+    "href": "content/01_journal/03_data_wrangling.html#combine-the-uspc-data",
+    "title": "Data Wrangling",
+    "section": "\n4 Combine the USPC Data",
+    "text": "4 Combine the USPC Data\n\n# Important to notes\n# There seem to be multiple patent classifications per patent.\n\ncombined_uspc_data <- merge(x = patent_assignee_tbl, y = assignee_tbl, \n                       by.x = \"assignee_id\",\n                       by.y = \"id\",\n                       all = FALSE)\n\ncombined_uspc_data <- merge(x = combined_uspc_data, y = uspc_tbl,\n                       by = \"patent_id\",\n                       all.x = TRUE,\n                       # There seem to be patents without a classification.\n                       all.y = FALSE)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#us-patent-dominance",
+    "href": "content/01_journal/03_data_wrangling.html#us-patent-dominance",
+    "title": "Data Wrangling",
+    "section": "\n5 US Patent Dominance",
+    "text": "5 US Patent Dominance\n\ncombined_patent_data[\n  !is.na(organization) & type == \"2\",\n  .N, by = .(organization)][order(-N)] %>% \n  head(10)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#us-patent-activity-for-august",
+    "href": "content/01_journal/03_data_wrangling.html#us-patent-activity-for-august",
+    "title": "Data Wrangling",
+    "section": "\n6 US Patent Activity for August",
+    "text": "6 US Patent Activity for August\n\ncombined_patent_data[\n  !is.na(organization) & type == \"2\" & lubridate::month(date, label = T) == \"Aug\",\n  .N, \n  by = .(organization)][order(-N)] %>% head(10)"
+  },
+  {
+    "objectID": "content/01_journal/03_data_wrangling.html#most-innovative-sector-worldwide",
+    "href": "content/01_journal/03_data_wrangling.html#most-innovative-sector-worldwide",
+    "title": "Data Wrangling",
+    "section": "\n7 Most innovative Sector worldwide",
+    "text": "7 Most innovative Sector worldwide\n\ntop_organization_vect <- \n  combined_uspc_data[\n    !is.na(organization), .N, by = .(organization)][\n      order(-N)][\n        1:10, c(organization)]\n\ncombined_uspc_data[\n  !is.na(mainclass_id) & organization %in% top_organization_vect, \n  .N, \n  by = mainclass_id][\n    order(-N)][1:10]"
+  },
+  {
+    "objectID": "content/01_journal/04_data_visualization.html",
+    "href": "content/01_journal/04_data_visualization.html",
+    "title": "Data Visualization",
+    "section": "",
+    "text": "library(tidyverse)\ncovid_data_tbl <- read_csv(\"https://covid.ourworldindata.org/data/owid-covid-data.csv\")\n\ncountry_vect <- c(\"Germany\", \"France\", \"United Kingdom\", \"Spain\", \"United States\")\n\n# Countries\ncountry_data_tbl <- covid_data_tbl %>% \n  select(location, date, total_cases) %>% \n  filter(location %in% country_vect & !is.na(total_cases))\n\n# Europe\neurope_data_tbl <- covid_data_tbl %>% \n  select(continent, date, total_cases) %>% \n  filter(continent == \"Europe\" & !is.na(total_cases)) %>% \n  group_by(date) %>% \n  summarise(total_cases = sum(total_cases)) %>% \n  ungroup() %>% \n  mutate(location = \"Europe\")\n\n# Combine country and Europe tables\nwrangled_data_tbl <- europe_data_tbl %>% \n  add_row(country_data_tbl)\n\n# Create the label data used to display the current \n# total for Europe and the USA\nlabel_data <- wrangled_data_tbl %>% \n  filter(date == max(date)) %>% \n  filter(location == \"Europe\" | location == \"United States\") %>% \n  mutate(total_cases_label = scales::number(total_cases, \n                                            big.mark = \".\", \n                                            decimal.mark = \",\"))\n\n\n\nwrangled_data_tbl %>% \n  ggplot(aes(date, total_cases, color = location)) +\n  geom_line(linewidth = 0.5, linetype = 1) +\n  geom_label(\n    aes(label = total_cases_label),\n    data = label_data,\n    hjust = \"inward\",\n    nudge_y = 20000000,\n    show.legend = F) +\n  \n  scale_x_date(\n    date_breaks = \"1 month\",\n    date_labels = \"%B '%y\") +\n  scale_y_continuous(labels = scales::dollar_format(scale = 1e-6,\n                                                    prefix = \"\",\n                                                    suffix = \"M\")) +\n  \n  labs(\n    title = \"Covid-19 confirmed cases worldwide\",\n    subtitle = \"As of 06.05.2023\",\n    color = \"Continent / Country\",\n    x = \"\",\n    y = \"Cumulative Cases\"\n  ) +\n  \n  theme_grey() +\n  theme(\n    plot.background = element_rect(fill = \"#552525\"),\n    text = element_text(color = \"white\"),\n    axis.text.x = element_text(color = \"white\", angle = 45, hjust = 1, size = 6),\n    axis.text.y = element_text(color = \"white\", size = 6),\n    legend.background = element_rect(fill = \"#332525\"),\n    legend.key = element_blank(),\n    legend.text = element_text(color = \"white\", size = 6),\n    legend.position = \"bottom\"\n  )"
+  },
+  {
+    "objectID": "content/01_journal/04_data_visualization.html#data-wrangling-1",
+    "href": "content/01_journal/04_data_visualization.html#data-wrangling-1",
+    "title": "Data Visualization",
+    "section": "\n2.1 Data Wrangling",
+    "text": "2.1 Data Wrangling\n\ncurrent_covid_data <- covid_data_tbl %>%\n  \n  # Select the necessary data\n  filter(date == \"2023-04-01\") %>% \n  mutate(death_per_case = total_deaths / total_cases) %>% \n  select(location, death_per_case) %>%\n  \n  # Rename some locations so that they match with the map_data regions\n  mutate(location = case_when(\n\n    location == \"United Kingdom\" ~ \"UK\",\n    location == \"United States\" ~ \"USA\",\n    location == \"Democratic Republic of Congo\" ~ \"Democratic Republic of the Congo\",\n    TRUE ~ location\n\n  )) %>%\n  distinct()\n\n# Combine covid and world data\nmap_covid_data_tbl <- map_data(\"world\") %>% \n  left_join(current_covid_data, \n            by = join_by(\"region\" == \"location\"))"
+  },
+  {
+    "objectID": "content/01_journal/04_data_visualization.html#visualizing-1",
+    "href": "content/01_journal/04_data_visualization.html#visualizing-1",
+    "title": "Data Visualization",
+    "section": "\n2.2 Visualizing",
+    "text": "2.2 Visualizing\n\nmap_covid_data_tbl %>% \n  ggplot(aes(map_id = region)) +\n  \n  geom_map(aes(fill = death_per_case), map = map_covid_data_tbl) +\n  \n  expand_limits(x = map_covid_data_tbl$long, y = map_covid_data_tbl$lat) +\n  \n  scale_fill_gradient(low = \"#99FF99\", high = \"#005500\",\n                      labels = scales::dollar_format(scale = 1e2,\n                                                     prefix = \"\",\n                                                     suffix = \"%\")) +\n  \n  labs(\n    title = \"Covid-19 Case-fatality Rate\",\n    caption = \"Date: 04/01/2023\",\n    fill = \"Case-fatality Rate\"\n  ) +\n  \n  theme(\n    plot.background = element_rect(fill = \"#441111\"),\n    panel.background = element_blank(),\n    plot.title = element_text(color = \"white\", size = 20),\n    text = element_text(color = \"white\"),\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    legend.background = element_rect(fill = \"#552525\"),\n    legend.key = element_blank(),\n    legend.text = element_text(color = \"white\", size = 6),\n  )"
   },
   {
     "objectID": "content/02_notes/05_class_notes.html",
@@ -47,6 +159,13 @@
     "title": "Class Notes",
     "section": "",
     "text": "IMPORTANT: You can delete everything in here and start fresh. You might want to start by not deleting anything above this line until you know what that stuff is doing.\nThis is an .qmd file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a # in front of your text, it will create a top level-header."
+  },
+  {
+    "objectID": "content/03_other/06_links.html",
+    "href": "content/03_other/06_links.html",
+    "title": "Links",
+    "section": "",
+    "text": "R is a free open-source programming language that can be used for statistical analysis, data-simulation, graphing, and lots of other stuff. Another free program is R-studio, that provides a nice graphic interface for R. Download R first, then download R-studio. Both can run on PCs, Macs or Linux. Students will be learning R in the stats labs using the lab manual .\n\n\n\n\nGoogle is great, Google your problem\nStackoverflow is great, google will often take you there because someone has already asked your question, and someone else has answered, usually many people have answered your question many ways."
   },
   {
     "objectID": "index.html",

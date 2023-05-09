@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
-
+<meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Joschka Schwarz">
-
+<meta name="author" content="Tommy Weber">
 <title>MyLabJournal - Data Wrangling</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,8 +18,70 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -42,8 +101,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -61,17 +119,13 @@ ul.task-list li input[type="checkbox"] {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MyLabJournal</span>
@@ -82,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
   </li>  
@@ -90,8 +144,8 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Journal</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">    
-        <li>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
     <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html">
  <span class="dropdown-text">01 Tidyverse</span></a>
   </li>  
@@ -108,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">04 Data Visualization</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../content/02_notes/05_class_notes.html">
  <span class="menu-text">Class notes</span></a>
@@ -118,26 +172,30 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Links</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
+<div class="quarto-toggle-container">
                   <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
               </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+<li><a href="#add-libraries" id="toc-add-libraries" class="nav-link active" data-scroll-target="#add-libraries"><span class="toc-section-number">1</span>  Add Libraries</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data"><span class="toc-section-number">2</span>  Import data</a></li>
+  <li><a href="#combine-the-patent-data" id="toc-combine-the-patent-data" class="nav-link" data-scroll-target="#combine-the-patent-data"><span class="toc-section-number">3</span>  Combine the Patent Data</a></li>
+  <li><a href="#combine-the-uspc-data" id="toc-combine-the-uspc-data" class="nav-link" data-scroll-target="#combine-the-uspc-data"><span class="toc-section-number">4</span>  Combine the USPC Data</a></li>
+  <li><a href="#us-patent-dominance" id="toc-us-patent-dominance" class="nav-link" data-scroll-target="#us-patent-dominance"><span class="toc-section-number">5</span>  US Patent Dominance</a></li>
+  <li><a href="#us-patent-activity-for-august" id="toc-us-patent-activity-for-august" class="nav-link" data-scroll-target="#us-patent-activity-for-august"><span class="toc-section-number">6</span>  US Patent Activity for August</a></li>
+  <li><a href="#most-innovative-sector-worldwide" id="toc-most-innovative-sector-worldwide" class="nav-link" data-scroll-target="#most-innovative-sector-worldwide"><span class="toc-section-number">7</span>  Most innovative Sector worldwide</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Data Wrangling</h1>
 </div>
 
@@ -148,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Joschka Schwarz </p>
+             <p>Tommy Weber </p>
           </div>
   </div>
     
@@ -157,26 +215,175 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><section id="add-libraries" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="add-libraries">
+<span class="header-section-number">1</span> Add Libraries</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-1_ef74785f75e1adf8ee4a9d51827fc24b">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(vroom)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="import-data" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="import-data">
+<span class="header-section-number">2</span> Import data</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-2_ec90c33487dd6514896cd2ef5db53dbd">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Assgignee data</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>assignee_col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="at">type =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">organization =</span> <span class="fu">col_character</span>()</span>
+<span id="cb2-6"><a href="#cb2-6"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>assignee_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb2-9"><a href="#cb2-9"></a>            <span class="at">file       =</span> <span class="st">"../../../patent_data_reduced/assignee.tsv"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10"></a>            <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>            <span class="at">col_types  =</span> assignee_col_types,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>            <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        )</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="fu">setDT</span>(assignee_tbl)</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co"># Patent assignee data</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>patent_assignee_col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="at">patent_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="at">assignee_id =</span> <span class="fu">col_character</span>()</span>
+<span id="cb2-22"><a href="#cb2-22"></a>)</span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a>patent_assignee_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb2-25"><a href="#cb2-25"></a>            <span class="at">file       =</span> <span class="st">"../../../patent_data_reduced/patent_assignee.tsv"</span>, </span>
+<span id="cb2-26"><a href="#cb2-26"></a>            <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb2-27"><a href="#cb2-27"></a>            <span class="at">col_types  =</span> patent_assignee_col_types,</span>
+<span id="cb2-28"><a href="#cb2-28"></a>            <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        )</span>
+<span id="cb2-30"><a href="#cb2-30"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="fu">setDT</span>(patent_assignee_tbl)</span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co"># Patent data</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>patent_col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-36"><a href="#cb2-36"></a>  <span class="at">id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-37"><a href="#cb2-37"></a>  <span class="at">date =</span> <span class="fu">col_date</span>(<span class="st">"%Y-%m-%d"</span>),</span>
+<span id="cb2-38"><a href="#cb2-38"></a>  <span class="at">num_claims =</span> <span class="fu">col_integer</span>()</span>
+<span id="cb2-39"><a href="#cb2-39"></a>)</span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a>patent_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb2-42"><a href="#cb2-42"></a>            <span class="at">file       =</span> <span class="st">"../../../patent_data_reduced/patent.tsv"</span>, </span>
+<span id="cb2-43"><a href="#cb2-43"></a>            <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb2-44"><a href="#cb2-44"></a>            <span class="at">col_types  =</span> patent_col_types,</span>
+<span id="cb2-45"><a href="#cb2-45"></a>            <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb2-46"><a href="#cb2-46"></a>        )</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="fu">setDT</span>(patent_tbl)</span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="co"># USPC data</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a>uspc_col_types <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-53"><a href="#cb2-53"></a>  <span class="at">patent_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-54"><a href="#cb2-54"></a>  <span class="at">mainclass_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-55"><a href="#cb2-55"></a>  <span class="at">sequence =</span> <span class="fu">col_integer</span>()</span>
+<span id="cb2-56"><a href="#cb2-56"></a>)</span>
+<span id="cb2-57"><a href="#cb2-57"></a></span>
+<span id="cb2-58"><a href="#cb2-58"></a>uspc_tbl <span class="ot">&lt;-</span> <span class="fu">vroom</span>(</span>
+<span id="cb2-59"><a href="#cb2-59"></a>            <span class="at">file       =</span> <span class="st">"../../../patent_data_reduced/uspc.tsv"</span>, </span>
+<span id="cb2-60"><a href="#cb2-60"></a>            <span class="at">delim      =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb2-61"><a href="#cb2-61"></a>            <span class="at">col_types  =</span> uspc_col_types,</span>
+<span id="cb2-62"><a href="#cb2-62"></a>            <span class="at">na         =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span>)</span>
+<span id="cb2-63"><a href="#cb2-63"></a>        )</span>
+<span id="cb2-64"><a href="#cb2-64"></a></span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="fu">setDT</span>(uspc_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="combine-the-patent-data" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="combine-the-patent-data">
+<span class="header-section-number">3</span> Combine the Patent Data</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-3_89f416d2399a6682ce955bd314975c1a">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Important to note:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># It seems possible to have multiple assignees per patent.</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>combined_patent_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> patent_assignee_tbl, <span class="at">y =</span> assignee_tbl, </span>
+<span id="cb3-5"><a href="#cb3-5"></a>                       <span class="at">by.x =</span> <span class="st">"assignee_id"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>                       <span class="at">by.y =</span> <span class="st">"id"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>                       <span class="at">all =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>combined_patent_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> combined_patent_data, <span class="at">y =</span> patent_tbl,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>                       <span class="at">by.x =</span> <span class="st">"patent_id"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                       <span class="at">by.y =</span> <span class="st">"id"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>                       <span class="at">all.x =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-13"><a href="#cb3-13"></a>                       <span class="co"># There seem to be patents without an assignee</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>                       <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="combine-the-uspc-data" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="combine-the-uspc-data">
+<span class="header-section-number">4</span> Combine the USPC Data</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-4_0a903c1e3935a8050ff5a80260b4e4b1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Important to notes</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># There seem to be multiple patent classifications per patent.</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>combined_uspc_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> patent_assignee_tbl, <span class="at">y =</span> assignee_tbl, </span>
+<span id="cb4-5"><a href="#cb4-5"></a>                       <span class="at">by.x =</span> <span class="st">"assignee_id"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>                       <span class="at">by.y =</span> <span class="st">"id"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>                       <span class="at">all =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>combined_uspc_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> combined_uspc_data, <span class="at">y =</span> uspc_tbl,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>                       <span class="at">by =</span> <span class="st">"patent_id"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>                       <span class="at">all.x =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                       <span class="co"># There seem to be patents without a classification.</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>                       <span class="at">all.y =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="us-patent-dominance" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="us-patent-dominance">
+<span class="header-section-number">5</span> US Patent Dominance</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-5_16c28c9327bfb499e76f2c80558548f3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>combined_patent_data[</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="sc">!</span><span class="fu">is.na</span>(organization) <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"2"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  .N, by <span class="ot">=</span> .(organization)][<span class="fu">order</span>(<span class="sc">-</span>N)] <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["N"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"7547"},{"1":"Microsoft Corporation","2":"3165"},{"1":"Google Inc.","2":"2668"},{"1":"QUALCOMM Incorporated","2":"2597"},{"1":"Apple Inc.","2":"2201"},{"1":"General Electric Company","2":"1873"},{"1":"Hewlett-Packard Development Company, L.P.","2":"1638"},{"1":"AT&T INTELLECTUAL PROPERTY I, L.P.","2":"1625"},{"1":"Intel Corporation","2":"1616"},{"1":"GM Global Technology Operations LLC","2":"1533"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
+</div>
+</section><section id="us-patent-activity-for-august" class="level2" data-number="6"><h2 data-number="6" class="anchored" data-anchor-id="us-patent-activity-for-august">
+<span class="header-section-number">6</span> US Patent Activity for August</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-6_59442e7aaba105182eea7a43fd66b051">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>combined_patent_data[</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="sc">!</span><span class="fu">is.na</span>(organization) <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"2"</span> <span class="sc">&amp;</span> lubridate<span class="sc">::</span><span class="fu">month</span>(date, <span class="at">label =</span> T) <span class="sc">==</span> <span class="st">"Aug"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  .N, </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  by <span class="ot">=</span> .(organization)][<span class="fu">order</span>(<span class="sc">-</span>N)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["organization"],"name":[1],"type":["chr"],"align":["left"]},{"label":["N"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"International Business Machines Corporation","2":"718"},{"1":"Microsoft Corporation","2":"337"},{"1":"Google Inc.","2":"240"},{"1":"QUALCOMM Incorporated","2":"223"},{"1":"Apple Inc.","2":"222"},{"1":"Intel Corporation","2":"159"},{"1":"General Electric Company","2":"148"},{"1":"AT&T INTELLECTUAL PROPERTY I, L.P.","2":"146"},{"1":"Hewlett-Packard Development Company, L.P.","2":"140"},{"1":"GM Global Technology Operations LLC","2":"138"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="most-innovative-sector-worldwide" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="most-innovative-sector-worldwide">
+<span class="header-section-number">7</span> Most innovative Sector worldwide</h2>
+<div class="cell" data-hash="03_data_wrangling_cache/html/unnamed-chunk-7_96cf4f3a1943f129ca4dda4d4fd05bc1">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>top_organization_vect <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  combined_uspc_data[</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="sc">!</span><span class="fu">is.na</span>(organization), .N, by <span class="ot">=</span> .(organization)][</span>
+<span id="cb7-4"><a href="#cb7-4"></a>      <span class="fu">order</span>(<span class="sc">-</span>N)][</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(organization)]</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>combined_uspc_data[</span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="sc">!</span><span class="fu">is.na</span>(mainclass_id) <span class="sc">&amp;</span> organization <span class="sc">%in%</span> top_organization_vect, </span>
+<span id="cb7-9"><a href="#cb7-9"></a>  .N, </span>
+<span id="cb7-10"><a href="#cb7-10"></a>  by <span class="ot">=</span> mainclass_id][</span>
+<span id="cb7-11"><a href="#cb7-11"></a>    <span class="fu">order</span>(<span class="sc">-</span>N)][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["mainclass_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["N"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"257","2":"7979"},{"1":"455","2":"6191"},{"1":"370","2":"5483"},{"1":"348","2":"4113"},{"1":"709","2":"4018"},{"1":"438","2":"4004"},{"1":"715","2":"3142"},{"1":"707","2":"3140"},{"1":"345","2":"2953"},{"1":"375","2":"2601"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 
 
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

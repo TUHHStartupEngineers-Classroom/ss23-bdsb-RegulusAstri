@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="author" content="Joschka Schwarz">
+<meta name="author" content="Tommy Weber">
 <title>MyLabJournal - Tidyverse</title>
 <style>
 code{white-space: pre-wrap;}
@@ -188,17 +188,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
    
   <ul class="collapse">
-<li><a href="#text-formatting" id="toc-text-formatting" class="nav-link active" data-scroll-target="#text-formatting"><span class="toc-section-number">1</span>  Text Formatting</a></li>
-  <li>
-<a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings"><span class="toc-section-number">2</span>  Headings</a>
-  <ul class="collapse">
-<li><a href="#header-2" id="toc-header-2" class="nav-link" data-scroll-target="#header-2"><span class="toc-section-number">2.1</span>  Header 2</a></li>
-  </ul>
-</li>
-  <li><a href="#links-images" id="toc-links-images" class="nav-link" data-scroll-target="#links-images"><span class="toc-section-number">3</span>  Links &amp; Images</a></li>
-  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="toc-section-number">4</span>  Lists</a></li>
-  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="toc-section-number">5</span>  Tables</a></li>
-  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code"><span class="toc-section-number">6</span>  Source Code</a></li>
+<li><a href="#adding-libraries" id="toc-adding-libraries" class="nav-link active" data-scroll-target="#adding-libraries"><span class="toc-section-number">1</span>  Adding Libraries</a></li>
+  <li><a href="#importing-files" id="toc-importing-files" class="nav-link" data-scroll-target="#importing-files"><span class="toc-section-number">2</span>  Importing Files</a></li>
+  <li><a href="#examining-data" id="toc-examining-data" class="nav-link" data-scroll-target="#examining-data"><span class="toc-section-number">3</span>  Examining Data</a></li>
+  <li><a href="#joining-data" id="toc-joining-data" class="nav-link" data-scroll-target="#joining-data"><span class="toc-section-number">4</span>  Joining Data</a></li>
+  <li><a href="#wrangling-data" id="toc-wrangling-data" class="nav-link" data-scroll-target="#wrangling-data"><span class="toc-section-number">5</span>  Wrangling Data</a></li>
+  <li><a href="#business-insights" id="toc-business-insights" class="nav-link" data-scroll-target="#business-insights"><span class="toc-section-number">6</span>  Business Insights</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -213,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Joschka Schwarz </p>
+             <p>Tommy Weber </p>
           </div>
   </div>
     
@@ -222,157 +217,191 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
-</header><div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</header><section id="adding-libraries" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="adding-libraries">
+<span class="header-section-number">1</span> Adding Libraries</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-1_c3eb3ed85544a35f059458c3e7eb45ec">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-caption-container flex-fill">
-Note
+</section><section id="importing-files" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="importing-files">
+<span class="header-section-number">2</span> Importing Files</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-2_6fab55d97f18142f8eb900643a2418a5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>bikes_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../cm_data/01_raw_data/bikes.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>bikeshops_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../cm_data/01_raw_data/bikeshops.xlsx"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>orderlines_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../cm_data/01_raw_data/orderlines.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
-</div>
-</div>
-<p>This is a <code>.qmd</code> file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a # in front of your text, it will create a top level-header.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
-<section id="text-formatting" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> Text Formatting</h1>
-<p><em>italics</em> and <strong>bold</strong></p>
-<p>superscript<sup>2</sup> / subscript<sub>2</sub></p>
-<p><del>strikethrough</del></p>
-<p><code>verbatim code</code></p>
-<blockquote class="blockquote">
-<p>Blockquote</p>
-</blockquote>
-</section><section id="headings" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> Headings</h1>
-<section id="header-2" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="header-2">
-<span class="header-section-number">2.1</span> Header 2</h2>
-<section id="header-3" class="level3"><h3 class="anchored" data-anchor-id="header-3">Header 3</h3>
-<section id="header-4" class="level4"><h4 class="anchored" data-anchor-id="header-4">Header 4</h4>
-<section id="header-5" class="level5"><h5 class="anchored" data-anchor-id="header-5">Header 5</h5>
-<section id="header-6" class="level6"><h6 class="anchored" data-anchor-id="header-6">Header 6</h6>
-</section></section></section></section></section></section><section id="links-images" class="level1" data-number="3"><h1 data-number="3">
-<span class="header-section-number">3</span> Links &amp; Images</h1>
-<p><a href="https://quarto.org" class="uri">https://quarto.org</a></p>
-<p><a href="https://quarto.org">Quarto</a></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="../../assets/img/elephant.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Caption"><img src="../../assets/img/elephant.png" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Caption</figcaption><p></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="https://quarto.org"><img src="../../assets/img/elephant.png" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Caption</figcaption><p></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="https://quarto.org" title="An elephant"><img src="../../assets/img/elephant.png" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Caption</figcaption><p></p>
-</figure>
-</div>
-</section><section id="lists" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Lists</h1>
-<ul>
-<li>
-<p>unordered list</p>
-<ul>
-<li>sub-item 1</li>
-<li>sub-item 2
-<ul>
-<li>sub-sub-item 1</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>item 2</p>
-<p>Continued (indent 4 spaces)</p>
-</li>
-</ul>
-<ol type="1">
-<li>ordered list</li>
-<li>item 2
-<ol type="i">
-<li>sub-item 1
-<ol type="A">
-<li>sub-sub-item 1</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<ol class="example" type="1">
-<li>A list whose numbering</li>
-</ol>
-<p>continues after</p>
-<ol start="2" class="example" type="1">
-<li>an interruption</li>
-</ol></section><section id="tables" class="level1" data-number="5"><h1 data-number="5">
-<span class="header-section-number">5</span> Tables</h1>
-<table class="table">
-<thead><tr class="header">
-<th style="text-align: right;">Right</th>
-<th style="text-align: left;">Left</th>
-<th>Default</th>
-<th style="text-align: center;">Center</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">12</td>
-<td style="text-align: left;">12</td>
-<td>12</td>
-<td style="text-align: center;">12</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">123</td>
-<td style="text-align: left;">123</td>
-<td>123</td>
-<td style="text-align: center;">123</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
-<td>1</td>
-<td style="text-align: center;">1</td>
-</tr>
-</tbody>
-</table></section><section id="source-code" class="level1" data-number="6"><h1 data-number="6">
-<span class="header-section-number">6</span> Source Code</h1>
-<p>Use ``` to delimit blocks of source code:</p>
-<pre><code>code</code></pre>
-<p>Add a language to syntax highlight code blocks:</p>
-<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-1_78745102f85d5cf89cad6fe4a83ca938">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="examining-data" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="examining-data">
+<span class="header-section-number">3</span> Examining Data</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-3_4398a0f86340007b2955580b2a86e0a9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">glimpse</span>(bikes_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] 2</code></pre>
+<pre><code>#&gt; Rows: 231
+#&gt; Columns: 9
+#&gt; $ bike.id        &lt;dbl&gt; 2875, 2873, 2874, 2876, 2877, 2225, 2091, 2086, 2088, 2…
+#&gt; $ model          &lt;chr&gt; "Aeroad CF SL Disc 8.0 Di2", "Aeroad CF SLX Disc 9.0 ET…
+#&gt; $ model.year     &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2019, 2019, 2021, 2020, 2…
+#&gt; $ frame.material &lt;chr&gt; "carbon", "carbon", "carbon", "carbon", "carbon", "carb…
+#&gt; $ weight         &lt;dbl&gt; 7.60, 7.27, 7.10, 7.73, 7.83, 6.80, 6.80, 7.60, 7.30, 7…
+#&gt; $ price          &lt;dbl&gt; 4579, 6919, 6429, 5069, 3609, 6139, 5359, 2629, 3699, 3…
+#&gt; $ category       &lt;chr&gt; "Road - Race - Aeroad", "Road - Race - Aeroad", "Road -…
+#&gt; $ gender         &lt;chr&gt; "unisex", "unisex", "unisex", "unisex", "unisex", "unis…
+#&gt; $ url            &lt;chr&gt; "https://www.canyon.com/en-de/road-bikes/race-bikes/aer…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">glimpse</span>(bikeshops_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 30
+#&gt; Columns: 5
+#&gt; $ bikeshop.id &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+#&gt; $ name        &lt;chr&gt; "Zum Goldenen Lenker", "AlexandeRad", "Fahrradladen 16", "…
+#&gt; $ location    &lt;chr&gt; "Berlin, Berlin", "Hamburg, Hamburg", "Munich, Bavaria", "…
+#&gt; $ lat         &lt;dbl&gt; 52.51667, 53.57532, 48.15000, 50.93333, 50.11552, 48.78234…
+#&gt; $ lng         &lt;dbl&gt; 13.400000, 10.015340, 11.583333, 6.950000, 8.684167, 9.180…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">glimpse</span>(orderlines_tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Rows: 15,644
+#&gt; Columns: 7
+#&gt; $ ...1        &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "…
+#&gt; $ order.id    &lt;dbl&gt; 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7…
+#&gt; $ order.line  &lt;dbl&gt; 1, 2, 1, 2, 1, 2, 3, 4, 5, 1, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2…
+#&gt; $ order.date  &lt;dttm&gt; 2015-01-07, 2015-01-07, 2015-01-10, 2015-01-10, 2015-01-1…
+#&gt; $ customer.id &lt;dbl&gt; 2, 2, 10, 10, 6, 6, 6, 6, 6, 22, 8, 8, 8, 8, 16, 16, 16, 1…
+#&gt; $ product.id  &lt;dbl&gt; 2681, 2411, 2629, 2137, 2367, 1973, 2422, 2655, 2247, 2408…
+#&gt; $ quantity    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1…</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-2_f6e8e1bca112a7054679dca3031b6157">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="joining-data" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="joining-data">
+<span class="header-section-number">4</span> Joining Data</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-4_68da99f73ee40ac7bee978af77cc1d90">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>bike_orderlines_joined_tbl <span class="ot">&lt;-</span> orderlines_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">left_join</span>(bikes_tbl, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">'product.id'</span> <span class="sc">==</span> <span class="st">'bike.id'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">left_join</span>(bikeshops_tbl, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">'customer.id'</span> <span class="sc">==</span> <span class="st">'bikeshop.id'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="wrangling-data" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="wrangling-data">
+<span class="header-section-number">5</span> Wrangling Data</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-5_2067d981d38fb65a96196fec3529f805">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>bike_orderlines_wrangled_tbl <span class="ot">&lt;-</span> bike_orderlines_joined_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">separate</span>(<span class="at">col =</span> location,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"city"</span>, <span class="st">"state"</span>),</span>
+<span id="cb10-4"><a href="#cb10-4"></a>           <span class="at">sep =</span> <span class="st">", "</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">mutate</span>(<span class="at">total_price =</span> price <span class="sc">*</span> quantity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="business-insights" class="level2" data-number="6"><h2 data-number="6" class="anchored" data-anchor-id="business-insights">
+<span class="header-section-number">6</span> Business Insights</h2>
+<section id="sales-by-states" class="level3" data-number="6.1"><h3 data-number="6.1" class="anchored" data-anchor-id="sales-by-states">
+<span class="header-section-number">6.1</span> Sales by States</h3>
+<section id="manipulate" class="level4" data-number="6.1.1"><h4 data-number="6.1.1" class="anchored" data-anchor-id="manipulate">
+<span class="header-section-number">6.1.1</span> Manipulate</h4>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-6_bb5456a9733e2ad54cd28b5b3f21c77d">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>sales_by_states_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">select</span>(state, total_price) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">summarise</span>(<span class="at">sales =</span> <span class="fu">sum</span>(total_price)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">mutate</span>(<span class="at">sales_text =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(sales, <span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb11-6"><a href="#cb11-6"></a>                                     <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb11-7"><a href="#cb11-7"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb11-8"><a href="#cb11-8"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a>sales_by_states_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>sales) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["speed"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["dist"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"2"},{"1":"4","2":"10"},{"1":"7","2":"4"},{"1":"7","2":"22"},{"1":"8","2":"16"},{"1":"9","2":"10"},{"1":"10","2":"18"},{"1":"10","2":"26"},{"1":"10","2":"34"},{"1":"11","2":"17"},{"1":"11","2":"28"},{"1":"12","2":"14"},{"1":"12","2":"20"},{"1":"12","2":"24"},{"1":"12","2":"28"},{"1":"13","2":"26"},{"1":"13","2":"34"},{"1":"13","2":"34"},{"1":"13","2":"46"},{"1":"14","2":"26"},{"1":"14","2":"36"},{"1":"14","2":"60"},{"1":"14","2":"80"},{"1":"15","2":"20"},{"1":"15","2":"26"},{"1":"15","2":"54"},{"1":"16","2":"32"},{"1":"16","2":"40"},{"1":"17","2":"32"},{"1":"17","2":"40"},{"1":"17","2":"50"},{"1":"18","2":"42"},{"1":"18","2":"56"},{"1":"18","2":"76"},{"1":"18","2":"84"},{"1":"19","2":"36"},{"1":"19","2":"46"},{"1":"19","2":"68"},{"1":"20","2":"32"},{"1":"20","2":"48"},{"1":"20","2":"52"},{"1":"20","2":"56"},{"1":"20","2":"64"},{"1":"22","2":"66"},{"1":"23","2":"54"},{"1":"24","2":"70"},{"1":"24","2":"92"},{"1":"24","2":"93"},{"1":"24","2":"120"},{"1":"25","2":"85"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sales"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sales_text"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"North Rhine-Westphalia","2":"21200613","3":"21.200.613 €"},{"1":"Bremen","2":"10653499","3":"10.653.499 €"},{"1":"Bavaria","2":"6742819","3":"6.742.819 €"},{"1":"Baden-Württemberg","2":"6521090","3":"6.521.090 €"},{"1":"Lower Saxony","2":"4107115","3":"4.107.115 €"},{"1":"Hamburg","2":"3874756","3":"3.874.756 €"},{"1":"Schleswig-Holstein","2":"3224749","3":"3.224.749 €"},{"1":"Saxony","2":"2230245","3":"2.230.245 €"},{"1":"Hesse","2":"1558901","3":"1.558.901 €"},{"1":"Berlin","2":"1128433","3":"1.128.433 €"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-3_c54f7526e0f7f04368360fa7b6e5663a">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">plot</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="visualize" class="level4" data-number="6.1.2"><h4 data-number="6.1.2" class="anchored" data-anchor-id="visualize">
+<span class="header-section-number">6.1.2</span> Visualize</h4>
+<div class="cell" data-hash="01_tidyverse_cache/html/plot1_8cd328d3c8aafea32c0064ffed1d5aee">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>sales_by_states_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> sales)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  </span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2DC6D6"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> sales_text)) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  </span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb12-10"><a href="#cb12-10"></a>                                                    <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb12-11"><a href="#cb12-11"></a>                                                    <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb12-12"><a href="#cb12-12"></a>                                                    <span class="at">suffix =</span> <span class="st">" €"</span>)) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="at">title    =</span> <span class="st">"Revenue by year"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15"></a>    <span class="at">subtitle =</span> <span class="st">"Upward Trend"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb12-17"><a href="#cb12-17"></a>    <span class="at">y =</span> <span class="st">"Revenue"</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a>  ) <span class="sc">+</span> </span>
+<span id="cb12-19"><a href="#cb12-19"></a>  </span>
+<span id="cb12-20"><a href="#cb12-20"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="01_tidyverse_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="01_tidyverse_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+<figure class="figure"><p><a href="01_tidyverse_files/figure-html/plot1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="01_tidyverse_files/figure-html/plot1-1.png" class="img-fluid figure-img" width="1152"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>North Rhine-Westphalia has the highest total revenue.</p>
+</section></section><section id="sales-by-states-and-years" class="level3" data-number="6.2"><h3 data-number="6.2" class="anchored" data-anchor-id="sales-by-states-and-years">
+<span class="header-section-number">6.2</span> Sales by States and Years</h3>
+<section id="manipulate-1" class="level4" data-number="6.2.1"><h4 data-number="6.2.1" class="anchored" data-anchor-id="manipulate-1">
+<span class="header-section-number">6.2.1</span> Manipulate</h4>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-7_ba593c8bb607fed12ecceeafd59c2b8f">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>sales_by_states_and_years_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">select</span>(state, order.date, total_price) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(order.date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">group_by</span>(state, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">summarise</span>(<span class="at">sales =</span> <span class="fu">sum</span>(total_price)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">mutate</span>(<span class="at">sales_text =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(sales, <span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb13-8"><a href="#cb13-8"></a>                                     <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb13-9"><a href="#cb13-9"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb13-10"><a href="#cb13-10"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span>
+<span id="cb13-11"><a href="#cb13-11"></a></span>
+<span id="cb13-12"><a href="#cb13-12"></a>sales_by_states_and_years_tbl <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sales"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sales_text"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Baden-Württemberg","2":"2015","3":"1031924","4":"1.031.924 €"},{"1":"Baden-Württemberg","2":"2016","3":"1561658","4":"1.561.658 €"},{"1":"Baden-Württemberg","2":"2017","3":"1224152","4":"1.224.152 €"},{"1":"Baden-Württemberg","2":"2018","3":"1114327","4":"1.114.327 €"},{"1":"Baden-Württemberg","2":"2019","3":"1589029","4":"1.589.029 €"},{"1":"Bavaria","2":"2015","3":"1301461","4":"1.301.461 €"},{"1":"Bavaria","2":"2016","3":"1129852","4":"1.129.852 €"},{"1":"Bavaria","2":"2017","3":"1411851","4":"1.411.851 €"},{"1":"Bavaria","2":"2018","3":"1168783","4":"1.168.783 €"},{"1":"Bavaria","2":"2019","3":"1730872","4":"1.730.872 €"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="visualize-1" class="level4" data-number="6.2.2"><h4 data-number="6.2.2" class="anchored" data-anchor-id="visualize-1">
+<span class="header-section-number">6.2.2</span> Visualize</h4>
+<div class="cell" data-hash="01_tidyverse_cache/html/plot2_5372c51881b77b1af7f98d6278afe626">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>sales_by_states_and_years_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  </span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> sales, <span class="at">fill =</span> state)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  </span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> state) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>  </span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb14-10"><a href="#cb14-10"></a>                                                    <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb14-11"><a href="#cb14-11"></a>                                                    <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb14-12"><a href="#cb14-12"></a>                                                    <span class="at">suffix =</span> <span class="st">" €"</span>)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-14"><a href="#cb14-14"></a>    <span class="at">title =</span> <span class="st">"Revenue by year and main category"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15"></a>    <span class="at">subtitle =</span> <span class="st">"Each product category has an upward trend"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16"></a>    <span class="at">fill =</span> <span class="st">"Main category"</span> <span class="co"># Changes the legend name</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="01_tidyverse_files/figure-html/plot2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="01_tidyverse_files/figure-html/plot2-1.png" class="img-fluid figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -621,7 +650,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":true,"closeEffect":"zoom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 </body></html>
